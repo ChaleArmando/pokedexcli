@@ -23,6 +23,10 @@ func replLoop() {
 			continue
 		}
 
-		fmt.Printf("Your command was: %s\n", cleanInputSlice[0])
+		if val, ok := getCommands()[cleanInputSlice[0]]; ok {
+			val.callback()
+		} else {
+			fmt.Println("Unknown command")
+		}
 	}
 }
