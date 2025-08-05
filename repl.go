@@ -14,6 +14,10 @@ func cleanInput(text string) []string {
 
 func replLoop() {
 	scanner := bufio.NewScanner(os.Stdin)
+	configPokeAPI := &config{
+		next:     "https://pokeapi.co/api/v2/location-area/",
+		previous: "",
+	}
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
@@ -24,7 +28,8 @@ func replLoop() {
 		}
 
 		if val, ok := getCommands()[cleanInputSlice[0]]; ok {
-			val.callback()
+
+			val.callback(configPokeAPI)
 		} else {
 			fmt.Println("Unknown command")
 		}
