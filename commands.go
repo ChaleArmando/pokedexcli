@@ -1,5 +1,9 @@
 package main
 
+import (
+	"github.com/ChaleArmando/pokedexcli/internal/pokeapi"
+)
+
 type cliCommand struct {
 	name        string
 	description string
@@ -7,6 +11,7 @@ type cliCommand struct {
 }
 
 type config struct {
+	client   pokeapi.Client
 	next     string
 	previous string
 }

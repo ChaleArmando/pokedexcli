@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"internal/pokeapi"
 )
 
 func commandMapb(c *config) error {
 	if c.previous == "" {
 		fmt.Println("you're on the first page")
 	}
-	resp, err := pokeapi.GetLocationArea(c.previous)
+	resp, err := c.client.GetLocationArea(c.previous)
 
 	if err != nil {
 		return err

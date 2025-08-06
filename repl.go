@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/ChaleArmando/pokedexcli/internal/pokeapi"
 )
 
 func cleanInput(text string) []string {
@@ -15,7 +18,8 @@ func cleanInput(text string) []string {
 func replLoop() {
 	scanner := bufio.NewScanner(os.Stdin)
 	configPokeAPI := &config{
-		next:     "https://pokeapi.co/api/v2/location-area/",
+		client:   pokeapi.NewClient(time.Second*5, time.Minute*5),
+		next:     "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
 		previous: "",
 	}
 	for {

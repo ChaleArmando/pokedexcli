@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"internal/pokeapi"
 )
 
 func commandMap(c *config) error {
-	resp, err := pokeapi.GetLocationArea(c.next)
+	resp, err := c.client.GetLocationArea(c.next)
 
 	if err != nil {
 		return err
