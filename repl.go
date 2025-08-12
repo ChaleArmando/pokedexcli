@@ -32,8 +32,14 @@ func replLoop() {
 		}
 
 		if val, ok := getCommands()[cleanInputSlice[0]]; ok {
-
-			val.callback(configPokeAPI)
+			area := ""
+			if len(cleanInputSlice) > 1 {
+				area = cleanInputSlice[1]
+			}
+			err := val.callback(configPokeAPI, area)
+			if err != nil {
+				fmt.Println(err)
+			}
 		} else {
 			fmt.Println("Unknown command")
 		}

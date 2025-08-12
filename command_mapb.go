@@ -4,9 +4,9 @@ import (
 	"fmt"
 )
 
-func commandMapb(c *config) error {
+func commandMapb(c *config, area string) error {
 	if c.previous == "" {
-		fmt.Println("you're on the first page")
+		return fmt.Errorf("you're on the first page")
 	}
 	resp, err := c.client.GetLocationArea(c.previous)
 
