@@ -7,13 +7,14 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config, string) error
+	callback    func(*config, ...string) error
 }
 
 type config struct {
-	client   pokeapi.Client
-	next     string
-	previous string
+	client         pokeapi.Client
+	next           string
+	previous       string
+	catchedPokemon map[string]pokeapi.Pokemon
 }
 
 func getCommands() map[string]cliCommand {
@@ -40,8 +41,13 @@ func getCommands() map[string]cliCommand {
 		},
 		"explore": {
 			name:        "explore",
-			description: "Displays a list of all the Pokémons located in a location",
+			description: "Displays a list of all the Pokémons in a location",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Try catching Pokemons by name",
+			callback:    commandCatch,
 		},
 	}
 	return commands_map

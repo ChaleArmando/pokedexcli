@@ -18,9 +18,10 @@ func cleanInput(text string) []string {
 func replLoop() {
 	scanner := bufio.NewScanner(os.Stdin)
 	configPokeAPI := &config{
-		client:   pokeapi.NewClient(time.Second*5, time.Minute*5),
-		next:     "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
-		previous: "",
+		client:         pokeapi.NewClient(time.Second*5, time.Minute*5),
+		next:           "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
+		previous:       "",
+		catchedPokemon: make(map[string]pokeapi.Pokemon),
 	}
 	for {
 		fmt.Print("Pokedex > ")
@@ -32,11 +33,11 @@ func replLoop() {
 		}
 
 		if val, ok := getCommands()[cleanInputSlice[0]]; ok {
-			area := ""
+			params := []string{}
 			if len(cleanInputSlice) > 1 {
-				area = cleanInputSlice[1]
+				params = cleanInputSlice[1:]
 			}
-			err := val.callback(configPokeAPI, area)
+			err := val.callback(configPokeAPI, params...)
 			if err != nil {
 				fmt.Println(err)
 			}

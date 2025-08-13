@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func commandMap(c *config, area string) error {
+func commandMap(c *config, params ...string) error {
 	resp, err := c.client.GetLocationArea(c.next)
 
 	if err != nil {
